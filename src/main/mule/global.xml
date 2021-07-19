@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	
+	<http:listener-config name="dataloaderConfig" doc:name="HTTP Listener config" doc:id="17329523-8a4b-4fb0-9ffc-772a7f2e6219" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="cb47ff59-a213-4bd7-b651-427fe13520b0" >
+		<salesforce:config-with-oauth-connection >
+			<salesforce:oauth-authorization-code consumerKey="CONSUMER" consumerSecret="SECRET" resourceOwnerId="salesforceQueryTool"/>
+			<salesforce:oauth-callback-config listenerConfig="dataloaderConfig" callbackPath="/callback" authorizePath="/authorize" externalCallbackUrl="http://localhost:8081/dataloader.html"/>
+		</salesforce:config-with-oauth-connection>
+	</salesforce:sfdc-config>
+	
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c228eab9-7e54-48de-8b4d-26e7a0a33b4a" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
+</mule>

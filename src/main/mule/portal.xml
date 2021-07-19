@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="8d3c0ad6-a802-435b-af50-18f904e030f5" >
+		<http:request-connection host="localhost" port="8081" />
+	</http:request-config>
+	<flow name="portalFlow" doc:id="5dd4404a-c0b3-4914-ac20-5a0fa7fa7026">
+	
+		<http:listener doc:name="Listener" doc:id="9ae55ff5-4234-4c5c-81f3-5cd1ee7fd9b6" config-ref="dataloaderConfig" path="/*"/>
+		<http:load-static-resource doc:name="Load static resource" doc:id="989d449d-a747-4e07-95f9-29f0b140907a" resourceBasePath="${mule.home}/apps/${app.name}/web/"/>
+	</flow>
+	<flow name="callBack" doc:id="0b5abc3d-de66-484f-b310-a90e350a0abb" >
+		<logger level="INFO" doc:name="Logger" doc:id="eccfbc9e-e208-42d6-a6ab-def996007c90" message="callback"/>		
+	</flow>
+	
+	
+</mule>
